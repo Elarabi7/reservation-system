@@ -12,11 +12,10 @@ const AdminDashboard = () => {
   const router = useRouter();
 
   useEffect(() => {
-    // Check if the user is logged in and has Admin role
     const storedRole = localStorage.getItem('role');
     const storedUsername = localStorage.getItem('username');
     if (storedRole !== 'Admin') {
-      router.push('/login');  // Redirect to login if not admin
+      router.push('/login');
     } else {
       setUsername(storedUsername);
       fetchReservations();
@@ -50,12 +49,12 @@ const AdminDashboard = () => {
 
     try {
       const response = await fetch(`https://679fb4ef24322f8329c46fea.mockapi.io/reservations/${id}`, {
-        method: 'PUT',  // Using PUT method for updating the reservation
+        method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({
-          status: updatedStatus,  // Set the status to either "Approved" or "Cancelled"
+          status: updatedStatus,
         }),
       });
 
@@ -64,7 +63,7 @@ const AdminDashboard = () => {
         throw new Error(`Failed to manage reservation. Status: ${response.status} - ${errorData.message || 'Unknown error'}`);
       }
 
-      fetchReservations(); // Refresh the reservations list
+      fetchReservations();
     } catch (error) {
       console.error('Error during reservation management:', error);
       alert(`An error occurred while managing the reservation: ${error.message}`);
@@ -72,10 +71,9 @@ const AdminDashboard = () => {
   };
 
   const handleLogout = () => {
-    // Clear user session from localStorage
     localStorage.removeItem('role');
     localStorage.removeItem('username');
-    router.push('/');  // Redirect to login page
+    router.push('/');
   };
 
   const filteredReservations = reservations.filter(reservation => {
@@ -89,7 +87,7 @@ const AdminDashboard = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-500 flex flex-col items-center justify-start font-inter py-8">
       <div className="text-center text-white mb-8">
-        <h1 className="text-6xl font-extrabold tracking-tight drop-shadow-md">Admin Dashboard</h1>
+        <h1 className="text-3xl sm:text-6xl font-extrabold tracking-tight drop-shadow-md">Admin Dashboard</h1>
         <p className="text-xl mt-4">Welcome, {username}!</p>
       </div>
 
@@ -97,24 +95,24 @@ const AdminDashboard = () => {
       
 
       {/* Filters Section */}
-      <div className="mb-8 w-full max-w-4xl">
-        <div className="flex gap-4 justify-center mb-4">
+      <div className="mb-8 w-full max-w-4xl px-4 sm:px-8">
+        <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
           <input
             type="text"
             placeholder="Filter by User Name"
-            className="text-black px-4 py-2 rounded-md"
+            className="text-black px-4 py-2 rounded-md w-full sm:w-1/3"
             value={filterUser}
             onChange={(e) => setFilterUser(e.target.value)}
           />
           <input
             type="text"
             placeholder="Filter by Hotel Name"
-            className="text-black px-4 py-2 rounded-md"
+            className="text-black px-4 py-2 rounded-md w-full sm:w-1/3"
             value={filterHotel}
             onChange={(e) => setFilterHotel(e.target.value)}
           />
           <select
-            className="text-black px-4 py-2 rounded-md"
+            className="text-black px-4 py-2 rounded-md w-full sm:w-1/3"
             value={filterStatus}
             onChange={(e) => setFilterStatus(e.target.value)}
           >
@@ -130,61 +128,115 @@ const AdminDashboard = () => {
       {loading ? (
         <div className="text-white text-xl">Loading reservations...</div>
       ) : (
-        <div className="w-full max-w-4xl">
-          <table className="table-auto w-full text-white bg-white rounded-lg shadow-xl">
-            <thead className="bg-indigo-700">
-              <tr>
-                <th className="px-6 py-3 text-left text-sm font-medium">Reservation ID</th>
-                <th className="px-6 py-3 text-left text-sm font-medium">User Name</th>
-                <th className="px-6 py-3 text-left text-sm font-medium">Hotel Name</th>
-                <th className="px-6 py-3 text-left text-sm font-medium">Check-in</th>
-                <th className="px-6 py-3 text-left text-sm font-medium">Check-out</th>
-                <th className="px-6 py-3 text-left text-sm font-medium">Status</th>
-                <th className="px-6 py-3 text-left text-sm font-medium">Actions</th>
-              </tr>
-            </thead>
-            <tbody className="text-black">
-              {filteredReservations.length === 0 ? (
+        <div className="w-full max-w-4xl px-4 sm:px-8">
+          {/* Table for larger screens */}
+          <div className="hidden sm:block">
+            <table className="table-auto w-full text-white bg-white rounded-lg shadow-xl">
+              <thead className="bg-indigo-700">
                 <tr>
-                  <td colSpan="7" className="text-center py-6">No reservations found.</td>
+                  <th className="px-6 py-3 text-left text-sm font-medium">Reservation ID</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium">User Name</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium">Hotel Name</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium">Check-in</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium">Check-out</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium">Status</th>
+                  <th className="px-6 py-3 text-left text-sm font-medium">Actions</th>
                 </tr>
-              ) : (
-                filteredReservations.map((reservation) => (
-                  <tr key={reservation.id} className="border-b">
-                    <td className="px-6 py-4">{reservation.id}</td>
-                    <td className="px-6 py-4">{reservation.user}</td>
-                    <td className="px-6 py-4">{reservation.hotel}</td>
-                    <td className="px-6 py-4">{reservation.checkIn}</td>
-                    <td className="px-6 py-4">{reservation.checkOut}</td>
-                    <td className="px-6 py-4">{reservation.status}</td>
-                    <td className="px-6 py-4 flex gap-4 justify-start">
-                      {reservation.status === 'Pending' && (
-                        <button
-                          onClick={() => handleManageReservation(reservation.id, 'approve')}
-                          className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700"
-                        >
-                          Approve
-                        </button>
-                      )}
-                      <button
-                        onClick={() => handleManageReservation(reservation.id, 'cancel')}
-                        className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
-                      >
-                        Cancel
-                      </button>
-                    </td>
+              </thead>
+              <tbody className="text-black">
+                {filteredReservations.length === 0 ? (
+                  <tr>
+                    <td colSpan="7" className="text-center py-6">No reservations found.</td>
                   </tr>
-                ))
-              )}
-            </tbody>
-          </table>
+                ) : (
+                  filteredReservations.map((reservation) => (
+                    <tr key={reservation.id} className="border-b">
+                      <td className="px-6 py-4">{reservation.id}</td>
+                      <td className="px-6 py-4">{reservation.user}</td>
+                      <td className="px-6 py-4">{reservation.hotel}</td>
+                      <td className="px-6 py-4">{reservation.checkIn}</td>
+                      <td className="px-6 py-4">{reservation.checkOut}</td>
+                      <td className="px-6 py-4">{reservation.status}</td>
+                      <td className="px-6 py-4 flex gap-4 justify-start">
+                        {reservation.status === 'Pending' && (
+                          <button
+                            onClick={() => handleManageReservation(reservation.id, 'approve')}
+                            className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700"
+                          >
+                            Approve
+                          </button>
+                        )}
+                        <button
+                          onClick={() => handleManageReservation(reservation.id, 'cancel')}
+                          className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
+                        >
+                          Cancel
+                        </button>
+                      </td>
+                    </tr>
+                  ))
+                )}
+              </tbody>
+            </table>
+          </div>
+
+          {/* Card-based layout for smaller screens */}
+          <div className="sm:hidden">
+            {filteredReservations.length === 0 ? (
+              <div className="text-center text-white py-6">No reservations found.</div>
+            ) : (
+              filteredReservations.map((reservation) => (
+                <div key={reservation.id} className="bg-white rounded-lg shadow-md p-4 mb-4 text-black">
+                  <div className="mb-4">
+                    <div className="font-bold">Reservation ID:</div>
+                    <div>{reservation.id}</div>
+                  </div>
+                  <div className="mb-4">
+                    <div className="font-bold">User Name:</div>
+                    <div>{reservation.user}</div>
+                  </div>
+                  <div className="mb-4">
+                    <div className="font-bold">Hotel Name:</div>
+                    <div>{reservation.hotel}</div>
+                  </div>
+                  <div className="mb-4">
+                    <div className="font-bold">Check-in:</div>
+                    <div>{reservation.checkIn}</div>
+                  </div>
+                  <div className="mb-4">
+                    <div className="font-bold">Check-out:</div>
+                    <div>{reservation.checkOut}</div>
+                  </div>
+                  <div className="mb-4">
+                    <div className="font-bold">Status:</div>
+                    <div>{reservation.status}</div>
+                  </div>
+                  <div className="flex gap-4">
+                    {reservation.status === 'Pending' && (
+                      <button
+                        onClick={() => handleManageReservation(reservation.id, 'approve')}
+                        className="bg-green-500 text-white px-4 py-2 rounded-md hover:bg-green-700"
+                      >
+                        Approve
+                      </button>
+                    )}
+                    <button
+                      onClick={() => handleManageReservation(reservation.id, 'cancel')}
+                      className="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-700"
+                    >
+                      Cancel
+                    </button>
+                  </div>
+                </div>
+              ))
+            )}
+          </div>
         </div>
-        
       )}
-      <div className="text-center mt-8">
+      <div className="text-center mt-4">
         <button
           onClick={handleLogout}
-          className="bg-red-500 text-white px-6 py-3 rounded-md hover:bg-red-700"
+          className="bg-red-500 text-white px-6 py-3 rounded-md hover:bg-red-700 transition-all"
         >
           Logout
         </button>

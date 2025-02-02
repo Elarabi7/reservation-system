@@ -33,8 +33,8 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-indigo-900 via-indigo-700 to-indigo-500 flex items-center justify-center font-inter">
-      <div className="bg-white p-8 rounded-lg shadow-xl w-96">
-        <h2 className="text-3xl font-bold text-center text-indigo-700 mb-6">Login</h2>
+      <div className="bg-white p-6 sm:p-8 rounded-lg shadow-xl w-11/12 sm:w-96">
+        <h2 className="text-2xl sm:text-3xl font-bold text-center text-indigo-700 mb-6">Login</h2>
         <form onSubmit={handleLogin} className="space-y-6">
           <div>
             <label className="block text-sm font-medium text-gray-700">Username</label>
