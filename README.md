@@ -1,36 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Reservation Management System
 
-## Getting Started
+A simple and efficient system for managing hotel reservations. Users can create, view, and manage their reservations, while admins can manage all reservations by approving or canceling them. Built with Next.js, React, and Tailwind CSS for the frontend and mock API for reservation data.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+- **User Features:**
+  - Create, view, and cancel hotel reservations.
+  - Filter reservations based on status, hotel name, and user name.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- **Admin Features:**
+  - View all reservations made by users.
+  - Approve or cancel pending reservations.
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+- **Authentication:**
+  - User and Admin authentication via local storage (usernames and roles stored locally).
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- **Responsive Design:**
+  - The app is responsive, making it suitable for desktop, tablet, and mobile devices.
 
-## Learn More
+## Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend:**
+  - [Next.js](https://nextjs.org/) - React framework for server-side rendering and static site generation.
+  - [React](https://reactjs.org/) - JavaScript library for building user interfaces.
+  - [Tailwind CSS](https://tailwindcss.com/) - Utility-first CSS framework for rapid UI development.
+  - [MockAPI](https://mockapi.io/) - Mock API for managing reservations.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- **Tools & Libraries:**
+  - [React Router](https://reactrouter.com/) - For navigation between pages.
+  - [Local Storage](https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage) - For storing login information.
+  - [Vercel](https://vercel.com/) - For hosting the Next.js app.
