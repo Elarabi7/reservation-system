@@ -1,7 +1,7 @@
 'use client'
 import { useState, useEffect } from 'react';
 import CreateReservation from '../../../components/CreateReservation'; 
-import { useRouter } from 'next/navigation'; // Import the useRouter hook
+import { useRouter } from 'next/navigation';
 
 export default function Dashboard() {
   const [userReservations, setUserReservations] = useState([]);
@@ -120,7 +120,6 @@ export default function Dashboard() {
         </table>
       </div>
 
-      
       <button
         onClick={toggleModal}
         className="py-2 px-6 bg-green-600 text-white rounded-md hover:bg-green-700 mt-4"
@@ -134,14 +133,12 @@ export default function Dashboard() {
         Logout
       </button>
 
-      
       {showModal && (
         <div
           className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50 modal-overlay"
           onClick={handleClickOutside}
         >
           <div className="relative bg-white rounded-lg shadow-xl w-11/12 sm:w-1/2 lg:w-1/3">
-            {/* Close button (X) */}
             <button
               onClick={toggleModal}
               className="absolute top-2 right-2 text-xl font-bold text-gray-500 hover:text-gray-800"
@@ -153,7 +150,6 @@ export default function Dashboard() {
         </div>
       )}
 
-      
       {selectedReservation && (
         <div className="fixed inset-0 flex justify-center items-center bg-black bg-opacity-50">
           <div className="bg-white p-6 rounded-lg shadow-xl w-11/12 sm:w-96 text-black">

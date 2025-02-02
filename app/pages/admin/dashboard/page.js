@@ -91,10 +91,6 @@ const AdminDashboard = () => {
         <p className="text-xl mt-4">Welcome, {username}!</p>
       </div>
 
-      {/* Logout Button */}
-      
-
-      {/* Filters Section */}
       <div className="mb-8 w-full max-w-4xl px-4 sm:px-8">
         <div className="flex flex-col sm:flex-row gap-4 justify-center mb-4">
           <input
@@ -124,12 +120,10 @@ const AdminDashboard = () => {
         </div>
       </div>
 
-      {/* Loading Indicator */}
       {loading ? (
         <div className="text-white text-xl">Loading reservations...</div>
       ) : (
         <div className="w-full max-w-4xl px-4 sm:px-8">
-          {/* Table for larger screens */}
           <div className="hidden sm:block">
             <table className="table-auto w-full text-white bg-white rounded-lg shadow-xl">
               <thead className="bg-indigo-700">
@@ -180,7 +174,6 @@ const AdminDashboard = () => {
             </table>
           </div>
 
-          {/* Card-based layout for smaller screens */}
           <div className="sm:hidden">
             {filteredReservations.length === 0 ? (
               <div className="text-center text-white py-6">No reservations found.</div>

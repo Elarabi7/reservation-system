@@ -8,7 +8,6 @@ const Login = () => {
   const [error, setError] = useState('');
   const router = useRouter();
 
-  // Hardcoded credentials
   const hardcodedUsers = [
     { username: 'user1', password: 'user123', role: 'User' },
     { username: 'admin', password: 'admin123', role: 'Admin' },
@@ -22,12 +21,11 @@ const Login = () => {
     );
 
     if (user) {
-      // Store role in localStorage as a mock "token"
       localStorage.setItem('role', user.role);
       localStorage.setItem('username', username);
-      router.push(user.role === 'Admin' ? 'admin/dashboard' : 'user/dashboard');  // Redirect based on role
+      router.push(`${user.role.toLowerCase()}/dashboard`);
     } else {
-      setError('Invalid credentials. Please try again.');
+      setError('Invalid username or password. Please try again.');
     }
   };
 
